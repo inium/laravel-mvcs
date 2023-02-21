@@ -1,0 +1,125 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use {{ listRequestNamespace }}\{{ listRequestClass }};
+use {{ createRequestNamespace }}\{{ createRequestClass }};
+use {{ updateRequestNamespace }}\{{ updateRequestClass }};
+use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
+
+class {{ class }} extends Controller
+{
+    /**
+     * Service
+     *
+     * @var {{ serviceInterfaceClass }}
+     */
+    private {{ serviceInterfaceClass }} $service;
+
+    /**
+     * Constructor
+     *
+     * @param {{ serviceInterfaceClass }} $service
+     */
+    public function __construct({{ serviceInterfaceClass }} $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param {{ listRequestClass }}  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index({{ listRequestClass }} $request)
+    {
+        // 200 OK | 500 Internal Server Error
+        try {
+            $query = $request->all();
+            $ret = $this->service->find(
+                $query["page"],
+                $query["rows"],
+                $query["query"]
+            );
+
+            return new JsonResponse($ret);
+        } catch (\Throwable $th) {
+            abort($th->getCode(), $th->getMessage());
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  {{ createRequestClass }}  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store({{ createRequestClass }} $request)
+    {
+        // 201 Created | 422 Unprocessable Entity (Validation Fail) | 500 Internal Server Error
+        try {
+            $ret = $this->service->create($request->toDto());
+
+            return response()
+                ->noContent()
+                ->header(
+                    "Location",
+                    action([TestController::class, "show"], ["id" => $ret->id])
+                );
+        } catch (\Throwable $th) {
+            abort($th->getCode(), $th->getMessage());
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(int $id)
+    {
+        // 200 OK | 404 Not Found | 500 Internal Server Error
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            abort($th->getCode(), $th->getMessage());
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  {{ updateRequestClass }}  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update({{ updateRequestClass }} $request, int $id)
+    {
+        // 200 OK | 204 No Content | 422 Unprocessable Entity (Validation Fail) | 500 Internal Server Error
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            abort($th->getCode(), $th->getMessage());
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(int $id)
+    {
+        // 204 No Content | 500 Internal Server Error
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            abort($th->getCode(), $th->getMessage());
+        }
+    }
+}
