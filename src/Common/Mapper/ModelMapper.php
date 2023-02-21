@@ -1,6 +1,6 @@
 <?php
 
-namespace Inium\Multier\Common\Mapper;
+namespace Inium\Mvcs\Common\Mapper;
 
 use ReflectionClass;
 use RuntimeException;

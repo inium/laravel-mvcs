@@ -1,6 +1,6 @@
 <?php
 
-namespace Inium\Multier\Commands\Traits;
+namespace Inium\Mvcs\Commands\Traits;
 
 trait PublishModelTrait
 {

@@ -1,9 +1,0 @@
-<?php
-
-namespace {{ namespace }};
-
-use Inium\Multier\Common\Base\Interfaces\BaseRepositoryInterface;
-
-interface {{ class }} extends BaseRepositoryInterface
-{
-}

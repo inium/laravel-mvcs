@@ -1,0 +1,63 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ contentDtoNamespace }}\{{ contentDtoClass }};
+use {{ pageDtoNamespace }}\{{ pageDtoClass }};
+use {{ createDtoNamespace }}\{{ createDtoClass }};
+use {{ updateDtoNamespace }}\{{ updateDtoClass }};
+
+interface {{ class }}
+{
+    /**
+     * Paginate contents
+     *
+     * @param int $page     Page number
+     * @param int $rows     # of rows per page
+     * @return {{ pageDtoClass }}
+     */
+    public function paginate(int $page, int $rows): {{ pageDtoClass }};
+
+    /**
+     * Find contents
+     *
+     * @param string $query Query text
+     * @param int $page     Page number
+     * @param int $rows     # of rows per page
+     * @return {{ pageDtoClass }}
+     */
+    public function find(string $query, int $page, int $rows): {{ pageDtoClass }};
+
+    /**
+     * Find a content
+     *
+     * @param int $id   Content id
+     * @return {{ contentDtoClass }}
+     */
+    public function findOne(int $id): {{ contentDtoClass }};
+
+    /**
+     * Create a content
+     *
+     * @param {{ createDtoClass }} $dto Dto
+     * @return {{ contentDtoClass }}
+     */
+    public function create({{ createDtoClass }} $dto): {{ contentDtoClass }};
+
+    /**
+     * Update a content
+     *
+     * @param {{ updateDtoClass }} $dto Dto
+     * @param int $id   Content id
+     * @return int  # of affected rows
+     */
+    public function update({{ updateDtoClass }} $dto, int $id): int;
+
+    /**
+     * Delete a content
+     *
+     * @param int $id   Content id
+     * @return int  # of deleted rows
+     */
+    public function delete(int $id): int;
+}

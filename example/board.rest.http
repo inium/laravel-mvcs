@@ -1,0 +1,106 @@
+###
+# 게시판 목록 / 검색
+# - 등록일 최신순으로 게시판 목록 반환
+# ------------------------------------------------------------------------------
+# GET /api/v1/board?page={page}&rows={$rows}&query={query} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# ------------------------------------------------------------------------------
+# @param ?int page      페이지 번호 (기본값 1)
+# @param ?int rows      페이지당 Row수 (기본값 20)
+# @param ?string query  검색어 (기본값 null)
+#
+GET http://localhost:10000/api/v1/board?page=1&rows=20 HTTP/1.1
+# GET http://localhost:10000/api/v1/board?query=free HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+# 게시판 정보 조회
+# ------------------------------------------------------------------------------
+# GET /api/v1/board/{boardName} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+#
+GET http://localhost:10000/api/v1/board/free HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+# 게시판 등록
+# ------------------------------------------------------------------------------
+# POST /api/v1/board/ HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+#
+# {
+#   "name": {name},
+#   "nameKo": {nameKo},
+#   "description": {description}
+# }
+# ------------------------------------------------------------------------------
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+# @param string name        게시판 영문 이름 (Unique value)
+# @param string nameKo      게시판 한글 이름 (Unique value)
+# @param string description 게시판 설명
+#
+POST http://localhost:10000/api/v1/board HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0
+
+{
+    "name": "news",
+    "nameKo": "<script>alert('소식게시판')</script>",
+    "description": "<p><br>소식</br>게시판 입니다</p>"
+}
+
+###
+# 게시판 수정
+# ------------------------------------------------------------------------------
+# PUT /api/v1/board/{boardName} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+#
+# {
+#   "name": {name},
+#   "nameKo": {nameKo},
+#   "description": {description}
+# }
+# ------------------------------------------------------------------------------
+# @param string boardName   수정대상 게시판 이름
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+# @param string name        게시판 영문 이름 (Unique value)
+# @param string nameKo      게시판 한글 이름 (Unique value)
+# @param string description 게시판 설명
+#
+PUT http://localhost:10000/api/v1/board/news HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0
+
+{
+    "name": "news",
+    "nameKo": "<script>alert('뉴스게시판')</script>",
+    "description": "<p><br>뉴스</br>게시판 입니다</p>"
+}
+
+###
+# 게시판 삭제
+# ------------------------------------------------------------------------------
+# DELETE /api/v1/board/{boardName} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+#
+DELETE http://localhost:10000/api/v1/board/news HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0

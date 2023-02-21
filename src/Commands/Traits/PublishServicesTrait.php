@@ -1,6 +1,6 @@
 <?php
 
-namespace Inium\Multier\Commands\Traits;
+namespace Inium\Mvcs\Commands\Traits;
 
 trait PublishServicesTrait
 {
@@ -30,6 +30,11 @@ trait PublishServicesTrait
                 $name,
                 $dtoConf->content->namespace
             ),
+            "{{ pageDtoNamespace }}" => str_replace(
+                "{{ class }}",
+                $name,
+                $dtoConf->page->namespace
+            ),
             "{{ createDtoNamespace }}" => str_replace(
                 "{{ class }}",
                 $name,
@@ -44,6 +49,11 @@ trait PublishServicesTrait
                 "{{ class }}",
                 $name,
                 $dtoConf->content->classname
+            ),
+            "{{ pageDtoClass }}" => str_replace(
+                "{{ class }}",
+                $name,
+                $dtoConf->page->classname
             ),
             "{{ createDtoClass }}" => str_replace(
                 "{{ class }}",
@@ -107,6 +117,11 @@ trait PublishServicesTrait
                 $name,
                 $dtoConf->content->namespace
             ),
+            "{{ pageDtoNamespace }}" => str_replace(
+                "{{ class }}",
+                $name,
+                $dtoConf->page->namespace
+            ),
             "{{ createDtoNamespace }}" => str_replace(
                 "{{ class }}",
                 $name,
@@ -121,6 +136,11 @@ trait PublishServicesTrait
                 "{{ class }}",
                 $name,
                 $dtoConf->content->classname
+            ),
+            "{{ pageDtoClass }}" => str_replace(
+                "{{ class }}",
+                $name,
+                $dtoConf->page->classname
             ),
             "{{ createDtoClass }}" => str_replace(
                 "{{ class }}",

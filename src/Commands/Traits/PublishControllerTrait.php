@@ -1,11 +1,20 @@
 <?php
 
-namespace Inium\Multier\Commands\Traits;
+namespace Inium\Mvcs\Commands\Traits;
 
 trait PublishControllerTrait
 {
     use PublishStubTrait;
 
+    /**
+     * Controller를 Publish 한다.
+     *
+     * @param string $name              Controller 이름
+     * @param object $ctrlConfig        Controller 설정정보 (mvcs.php)
+     * @param object $reqConf           Request 설정정보 (mvcs.php)
+     * @param object $servInterfConfig  Service  설정정보 (mvcs.php)
+     * @return void
+     */
     protected function publishController(
         string $name,
         object $ctrlConfig,
@@ -19,10 +28,10 @@ trait PublishControllerTrait
         $this->publishStub($ctrlConfig->stub, $putPath, [
             "{{ namespace }}" => $namespace,
             "{{ class }}" => $class,
-            "{{ listRequestNamespace }}" => str_replace(
+            "{{ pageRequestNamespace }}" => str_replace(
                 "{{ class }}",
                 $name,
-                $reqConf->list->namespace
+                $reqConf->page->namespace
             ),
             "{{ createRequestNamespace }}" => str_replace(
                 "{{ class }}",
@@ -39,10 +48,10 @@ trait PublishControllerTrait
                 $name,
                 $servInterfConfig->namespace
             ),
-            "{{ listRequestClass }}" => str_replace(
+            "{{ pageRequestClass }}" => str_replace(
                 "{{ class }}",
                 $name,
-                $reqConf->list->classname
+                $reqConf->page->classname
             ),
             "{{ createRequestClass }}" => str_replace(
                 "{{ class }}",

@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }};
+
+class {{ class }} implements \JsonSerializable
+{
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Serialize member variables to an array
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return get_object_vars($this);
+    }
+}
+

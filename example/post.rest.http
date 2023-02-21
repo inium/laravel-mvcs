@@ -1,0 +1,112 @@
+###
+# 게시글 검색
+# - 등록일 기준 최신순으로 게시글 목록 반환
+# ------------------------------------------------------------------------------
+# GET /api/v1/board/{boardName}/post?page={page}&rows={rows}&notice={notice}&query={query} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param ?int page          페이지 번호 (기본값 1)
+# @param ?int rows          페이지당 Row수 (기본값 20)
+# @param ?bool|?int notice  공지사항 여부 (기본값 false)
+# @param ?string query      검색어
+#
+GET http://localhost:10000/api/v1/board/free/post?page=1&rows=20&notice=false HTTP/1.1
+# GET http://localhost:10000/api/v1/board/free/post?query=흙무더기 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+# 게시글 조회
+# ------------------------------------------------------------------------------
+# GET /api/v1/board/{boardName}/post/{postId} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param int postId         게시글 ID
+#
+GET http://localhost:10000/api/v1/board/free/post/237 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+###
+# 게시글 등록
+# ------------------------------------------------------------------------------
+# POST /api/v1/board/{boardName}/post HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+#
+# {
+#   subject: {subject}
+#   content: {content}
+#   notice: {notice}
+# }
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+# @param string subject     제목
+# @param string content     본문
+# @param ?bool notice       공지사항 여부 (기본값 false)
+#
+POST http://localhost:10000/api/v1/board/free/post HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0
+
+{
+    "subject": "lorem ipsum <b>dolor</p> <script>alert('sit amet')</script>",
+    "content": "<script>lorem</script> ipsum dolor <div>sit amet <p>consectetur</p> <b>adipiscing</b> elit</div>",
+    "notice": true
+}
+
+###
+# 게시글 수정
+# ------------------------------------------------------------------------------
+# PUT /api/v1/board/{boardName}/post/{postId} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+#
+# {
+#   subject: {subject}
+#   content: {content}
+#   notice: {notice}
+# }
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param int postId         게시글 ID
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+# @param string subject     제목
+# @param string content     본문
+# @param ?bool notice       공지사항 여부 (기본값 false)
+#
+PUT http://localhost:10000/api/v1/board/free/post/237 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0
+
+{
+    "subject": "<div>옷을 것은 <script>alert('영원히 그들의 사라지지 말이다.')</script></div>",
+    "content": "<script>alert('뛰노는'); windows.location.href='그들의 것';</script>은 끓는 내는 그들의 <div><b>천하</b>를 <p>고동을 끓는다.</p></div>",
+    "notice": true
+}
+
+###
+# 게시글 삭제
+# ------------------------------------------------------------------------------
+# DELETE /api/v1/board/{boardName}/post/{postId} HTTP/1.1
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: Basic {token}
+# ------------------------------------------------------------------------------
+# @param string boardName   게시판 이름
+# @param int postId         게시글 ID
+# @param string token       Basic Auth token (email:password, ex. mvcs@test.co.kr:onlyforte$t)
+#
+DELETE http://localhost:10000/api/v1/board/free/post/237 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bXZjc0B0ZXN0LmNvLmtyOm9uIXlmb3JUZSR0

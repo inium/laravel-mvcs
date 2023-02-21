@@ -1,0 +1,102 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use {{ pageRequestNamespace }}\{{ pageRequestClass }};
+use {{ createRequestNamespace }}\{{ createRequestClass }};
+use {{ updateRequestNamespace }}\{{ updateRequestClass }};
+use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
+
+class {{ class }} extends Controller
+{
+    /**
+     * service
+     *
+     * @var {{ serviceInterfaceClass }}
+     */
+    private {{ serviceInterfaceClass }} $service;
+
+    /**
+     * Constructor
+     *
+     * @param {{ serviceInterfaceClass }} $service
+     */
+    public function __construct({{ serviceInterfaceClass }} $service)
+    {
+        $this->service = $service;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param {{ pageRequestClass }} $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index({{ pageRequestClass }} $request)
+    {
+        $q = (object) $request->all();
+
+        $ret = is_null($q->query)
+            ? $this->service->paginate($q->page, $q->rows)
+            : $this->service->find($q->query, $q->page, $q->rows);
+
+        return response()->json($ret);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param {{ createRequestClass }} $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ createRequestClass }} $request)
+    {
+        $ret = $this->service->create($request->toDto());
+
+        return response()->noContent(Response::HTTP_CREATED, [
+            "Location" => [action([get_class(), "show"], ["id" => $ret->id])],
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(int $id)
+    {
+        $ret = $this->service->findOne($id);
+
+        return response()->json($ret);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param {{ updateRequestClass }} $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{ updateRequestClass }} $request, int $id)
+    {
+        $this->service->update($request->toDto(), $id);
+
+        return response()->noContent(Response::HTTP_OK);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(int $id)
+    {
+        $this->service->delete($id);
+
+        return response()->noContent();
+    }
+}

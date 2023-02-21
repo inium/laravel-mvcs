@@ -1,0 +1,137 @@
+<?php
+
+namespace {{ namespace }};
+
+use Inium\Mvcs\Common\Mapper\ModelMapper;
+use Inium\Mvcs\Common\Traits\ArrayTrait;
+use {{ repositoryInterfaceNamespace }}\{{ repositoryInterfaceClass }};
+use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
+use {{ contentDtoNamespace }}\{{ contentDtoClass }};
+use {{ pageDtoNamespace }}\{{ pageDtoClass }};
+use {{ createDtoNamespace }}\{{ createDtoClass }};
+use {{ updateDtoNamespace }}\{{ updateDtoClass }};
+
+class {{ class }} implements {{ serviceInterfaceClass }}
+{
+    use ArrayTrait;
+
+    /**
+     * Repository
+     *
+     * @var {{ repositoryInterfaceClass }}
+     */
+    private {{ repositoryInterfaceClass }} $repository;
+
+    /**
+     * Model Mapper
+     *
+     * @var ModelMapper
+     */
+    private ModelMapper $mapper;
+
+    /**
+     * Constructor
+     *
+     * @param {{ repositoryInterfaceClass }} $repository
+     */
+    public function __construct(
+        {{ repositoryInterfaceClass }} $repository,
+        ModelMapper $mapper
+    ) {
+        $this->repository = $repository;
+        $this->mapper = $mapper;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paginate(int $page, int $rows): {{ pageDtoClass }}
+    {
+        $coll = $this->repository->paginate($page, $rows);
+
+        $items = $coll->map(function ($item) {
+            return $this->mapper->map(
+                $this->keysToCamel($item->toArray()),
+                {{ contentDtoClass }}::class
+            );
+        });
+
+        return new {{ pageDtoClass }}(
+            $items->toArray(),
+            $coll->total(),
+            $coll->currentPage(),
+            $coll->lastPage(),
+            $coll->perPage()
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function find(string $query, int $page, int $rows): {{ pageDtoClass }}
+    {
+        $coll = $this->repository->find($query, $page, $rows);
+
+        $items = $coll->map(function ($item) {
+            return $this->mapper->map(
+                $this->keysToCamel($item->toArray()),
+                {{ contentDtoClass }}::class
+            );
+        });
+
+        return new {{ pageDtoClass }}(
+            $items->toArray(),
+            $coll->total(),
+            $coll->currentPage(),
+            $coll->lastPage(),
+            $coll->perPage()
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOne(int $id): {{ contentDtoClass }}
+    {
+        $ret = $this->repository->findOne($id);
+
+        return $this->mapper->map(
+            $this->keysToCamel($ret),
+            {{ contentDtoClass }}::class
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function create({{ createDtoClass }} $dto): {{ contentDtoClass }}
+    {
+        $ret = $this->repository->create(
+            $this->keysToSnake($dto->jsonSerialize())
+        );
+
+        return $this->mapper->map(
+            $this->keysToCamel($ret),
+            {{ contentDtoClass }}::class
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update({{ updateDtoClass }} $dto, int $id): int
+    {
+        return $this->repository->update(
+            $this->keysToSnake($dto->jsonSerialize()),
+            $id
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(int $id): int
+    {
+        return $this->repository->delete($id);
+    }
+}

@@ -1,15 +1,17 @@
 <?php
 
-namespace Inium\Multier\Commands\Traits;
+namespace Inium\Mvcs\Commands\Traits;
+
+use Illuminate\Support\Facades\File;
 
 trait PublishStubTrait
 {
     /**
-     * Publish a stub
+     * Stub 코드를 Project에 Publish 한다
      *
-     * @param string $src   source stub path
-     * @param string $dest  target(publish) path
-     * @param array $sr     searchReplace contents to be replace stub sentences
+     * @param string $src           Stub 코드 경로
+     * @param string $dest          Stub를 Publish할 경로
+     * @param array $searchReplace  Stub코드 내 검색 후 치환할 (search-replace할) 정보
      * @return void
      */
     protected function publishStub(
@@ -17,7 +19,6 @@ trait PublishStubTrait
         string $destPath,
         array $searchReplace
     ): void {
-        // from package root path
         $code = file_get_contents($stubPath);
 
         $search = array_keys($searchReplace);
@@ -25,12 +26,11 @@ trait PublishStubTrait
 
         $template = str_replace($search, $replace, $code);
 
-        // Check file published or not: avoid overwriting
-        if ($this->files->exists($destPath)) {
+        // if (File::exists(base_path($destPath))) {
+        if (file_exists(base_path($destPath))) {
             $this->components->error("Can't locate path: <{$destPath}>");
             return;
         }
-
         // Check directory exists and create if not exists
         $this->ensureDirectoryExists($destPath);
 
@@ -39,7 +39,8 @@ trait PublishStubTrait
             sprintf("Publishing [%s]", base_path($destPath))
         );
 
-        file_put_contents(base_path($destPath), $template);
+        // file_put_contents(base_path($destPath), $template);
+        File::put(base_path($destPath), $template);
     }
 
     /**
@@ -51,6 +52,6 @@ trait PublishStubTrait
     private function ensureDirectoryExists(string $putPath)
     {
         $dir = substr($putPath, 0, strrpos($putPath, "/"));
-        $this->files->ensureDirectoryExists($dir);
+        File::ensureDirectoryExists($dir);
     }
 }

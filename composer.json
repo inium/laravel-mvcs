@@ -1,28 +1,32 @@
 {
-    "name": "inium/laravel-multier",
-    "description": "Multi-tier Architecture (Layered architecture, Repository / Service / DTO) scaffolds on Laravel",
+    "name": "inium/laravel-mvcs",
+    "description": "Layered Architecture (Layered architecture, Repository / Service / DTO) scaffolds on Laravel",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "repository", "service", "dto", "scaffolds", "multi-tier", "multi-tier architecture", "layered architecture"],
+    "keywords": [
+        "laravel",
+        "repository",
+        "service",
+        "dto",
+        "scaffolds",
+        "layered architecture"
+    ],
     "authors": [
         {
             "name": "inlee",
-            "email": "einable@gmail.com"
+            "email": "jamesinlee@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "netresearch/jsonmapper": "^4.0",
-        "symfony/http-foundation": "^6.0",
-        "illuminate/support": "^9.27.0",
-        "illuminate/database": "^9.27.0",
-        "illuminate/pagination": "^9.27.0"
+        "symfony/http-foundation": "^6.0"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Inium\\Multier\\MultierServiceProvider"
+                "Inium\\Mvcs\\MvcsServiceProvider"
             ]
         },
         "branch-alias": {
@@ -30,10 +34,9 @@
         }
     },
     "autoload": {
-        "classmap": [
-        ],
+        "classmap": [],
         "psr-4": {
-            "Inium\\Multier\\": "src/"
+            "Inium\\Mvcs\\": "src/"
         }
     }
 }

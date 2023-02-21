@@ -1,0 +1,47 @@
+<?php
+
+namespace {{ namespace }};
+
+use Inium\Mvcs\Common\Requests\MvcsFormRequest;
+use {{ dtoNamespace }};
+
+class {{ class }} extends MvcsFormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function defaults(): ?array
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function dtoClassName(): ?string
+    {
+        return {{ dtoClass }}::class;
+    }
+}

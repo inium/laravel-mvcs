@@ -1,0 +1,123 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Inium\Mvcs\Common\Traits\PageResolverTrait;
+use {{ repositoryInterfaceNamespace }}\{{ repositoryInterfaceClass }};
+use {{ modelNamespace }}\{{ modelClass }};
+
+class {{ class }} implements {{ repositoryInterfaceClass }}
+{
+    use PageResolverTrait;
+
+    /**
+     * Model
+     *
+     * @var \{{ modelNamespace }}\{{ modelClass }}
+     */
+    private {{ modelClass }} $model;
+
+    /**
+     * Constructor
+     *
+     * @param \{{ modelNamespace }}\{{ modelClass }}
+     */
+    public function __construct({{ modelClass }} $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function count(): int
+    {
+        return $this->model->count();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function all(): Collection {
+        return $this->model->all();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function paginate(
+        int $page,
+        int $rows,
+        bool $desc = true
+    ): LengthAwarePaginator {
+        $this->setPageNum($page);
+
+        return $this->model
+            ->orderBy($this->model->getKeyName(), $desc ? "DESC" : "ASC")
+            ->paginate($rows);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function find(
+        string $query,
+        int $page,
+        int $rows,
+        bool $desc = true
+    ): LengthAwarePaginator {
+        $this->setPageNum($page);
+
+        // TODO: Add column names for searching $query 
+        $searchColumns = [];
+
+        return $this->model
+            ->where(function ($q) use ($searchColumns, $query) {
+                foreach ($searchColumns as $column) {
+                    $q->orWhere($column, "LIKE", "%{$query}%");
+                }
+            })
+            ->orderBy($this->model->getKeyName(), $desc ? "DESC" : "ASC")
+            ->paginate($rows);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOne(int $id): array
+    {
+        return $this->model->findOrFail($id)->toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function create(array $data): array
+    {
+        return $this->model->create($data)->toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function update(array $data, int $id): int
+    {
+        return $this->model
+            ->where("id", $id)
+            ->firstOrFail()
+            ->update($data);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(int $id): int
+    {
+        return $this->model
+            ->where("id", $id)
+            ->firstOrFail()
+            ->delete();
+    }
+}

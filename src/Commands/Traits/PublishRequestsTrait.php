@@ -1,19 +1,19 @@
 <?php
 
-namespace Inium\Multier\Commands\Traits;
+namespace Inium\Mvcs\Commands\Traits;
 
 trait PublishRequestsTrait
 {
     use PublishStubTrait;
 
     /**
-     * Publish list request
+     * Publish page request
      *
      * @param string $name          class name
      * @param object $reqConfig     request config
      * @return void
      */
-    protected function publishListRequest(string $name, object $reqConfig): void
+    protected function publishPageRequest(string $name, object $reqConfig): void
     {
         $ns = str_replace("{{ class }}", $name, $reqConfig->namespace);
         $class = str_replace("{{ class }}", $name, $reqConfig->classname);
