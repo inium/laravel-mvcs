@@ -2,6 +2,7 @@
 
 namespace {{ namespace }};
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use {{ pageRequestNamespace }}\{{ pageRequestClass }};
@@ -34,7 +35,7 @@ class {{ class }} extends Controller
      * @param {{ pageRequestClass }} $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index({{ pageRequestClass }} $request)
+    public function index({{ pageRequestClass }} $request): JsonResponse
     {
         $q = (object) $request->all();
 
@@ -51,7 +52,7 @@ class {{ class }} extends Controller
      * @param {{ createRequestClass }} $request
      * @return \Illuminate\Http\Response
      */
-    public function store({{ createRequestClass }} $request)
+    public function store({{ createRequestClass }} $request): Response
     {
         $ret = $this->service->create($request->toDto());
 
@@ -66,7 +67,7 @@ class {{ class }} extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $ret = $this->service->findOne($id);
 
@@ -80,7 +81,7 @@ class {{ class }} extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update({{ updateRequestClass }} $request, int $id)
+    public function update({{ updateRequestClass }} $request, int $id): Response
     {
         $this->service->update($request->toDto(), $id);
 
@@ -93,7 +94,7 @@ class {{ class }} extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id): Response
     {
         $this->service->delete($id);
 
