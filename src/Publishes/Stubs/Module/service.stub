@@ -47,14 +47,16 @@ class {{ class }} implements {{ serviceInterfaceClass }}
      */
     public function paginate(int $page, int $rows): {{ pageDtoClass }}
     {
-        $coll = $this->repository->paginate($page, $rows);
+        $ret = $this->repository->paginate($page, $rows);
 
-        $items = $coll->map(function ($item) {
-            return $this->mapper->map(
-                $this->keysToCamel($item->toArray()),
-                {{ contentDtoClass }}::class
-            );
-        });
+        $items = collect($ret["data"])
+            ->map(
+                fn($item) => $this->mapper->map(
+                    $this->keysToCamel($item),
+                    {{ contentDtoClass }}::class
+                )
+            )
+            ->toArray();
 
         return new {{ pageDtoClass }}(
             $items->toArray(),
@@ -70,14 +72,16 @@ class {{ class }} implements {{ serviceInterfaceClass }}
      */
     public function find(string $query, int $page, int $rows): {{ pageDtoClass }}
     {
-        $coll = $this->repository->find($query, $page, $rows);
+        $ret = $this->repository->find($query, $page, $rows);
 
-        $items = $coll->map(function ($item) {
-            return $this->mapper->map(
-                $this->keysToCamel($item->toArray()),
-                {{ contentDtoClass }}::class
-            );
-        });
+        $items = collect($ret["data"])
+            ->map(
+                fn($item) => $this->mapper->map(
+                    $this->keysToCamel($item),
+                    {{ contentDtoClass }}::class
+                )
+            )
+            ->toArray();
 
         return new {{ pageDtoClass }}(
             $items->toArray(),
