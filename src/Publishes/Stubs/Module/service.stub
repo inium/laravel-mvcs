@@ -59,7 +59,7 @@ class {{ class }} implements {{ serviceInterfaceClass }}
             ->toArray();
 
         return new {{ pageDtoClass }}(
-            $items->toArray(),
+            $items,
             $ret["total"],
             $ret["current_page"],
             $ret["last_page"],
@@ -84,7 +84,7 @@ class {{ class }} implements {{ serviceInterfaceClass }}
             ->toArray();
 
         return new {{ pageDtoClass }}(
-            $items->toArray(),
+            $items,
             $ret["total"],
             $ret["current_page"],
             $ret["last_page"],
