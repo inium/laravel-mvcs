@@ -60,10 +60,10 @@ class {{ class }} implements {{ serviceInterfaceClass }}
 
         return new {{ pageDtoClass }}(
             $items->toArray(),
-            $coll->total(),
-            $coll->currentPage(),
-            $coll->lastPage(),
-            $coll->perPage()
+            $ret["total"],
+            $ret["current_page"],
+            $ret["last_page"],
+            $ret["per_page"]
         );
     }
 
@@ -85,10 +85,10 @@ class {{ class }} implements {{ serviceInterfaceClass }}
 
         return new {{ pageDtoClass }}(
             $items->toArray(),
-            $coll->total(),
-            $coll->currentPage(),
-            $coll->lastPage(),
-            $coll->perPage()
+            $ret["total"],
+            $ret["current_page"],
+            $ret["last_page"],
+            $ret["per_page"]
         );
     }
 
