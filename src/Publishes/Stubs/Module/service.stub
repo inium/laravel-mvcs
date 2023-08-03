@@ -8,7 +8,7 @@ use {{ repositoryInterfaceNamespace }}\{{ repositoryInterfaceClass }};
 use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
 use {{ contentDtoNamespace }}\{{ contentDtoClass }};
 use {{ pageDtoNamespace }}\{{ pageDtoClass }};
-use {{ createDtoNamespace }}\{{ createDtoClass }};
+use {{ storeDtoNamespace }}\{{ storeDtoClass }};
 use {{ updateDtoNamespace }}\{{ updateDtoClass }};
 
 class {{ class }} implements {{ serviceInterfaceClass }}
@@ -108,9 +108,9 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function create({{ createDtoClass }} $dto): {{ contentDtoClass }}
+    public function store({{ storeDtoClass }} $dto): {{ contentDtoClass }}
     {
-        $ret = $this->repository->create(
+        $ret = $this->repository->store(
             $this->keysToSnake($dto->jsonSerialize())
         );
 
