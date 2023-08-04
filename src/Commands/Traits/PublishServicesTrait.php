@@ -50,11 +50,6 @@ trait PublishServicesTrait
                 $name,
                 $dtoConf->content->classname
             ),
-            "{{ pageDtoClass }}" => str_replace(
-                "{{ class }}",
-                $name,
-                $dtoConf->page->classname
-            ),
             "{{ createDtoClass }}" => str_replace(
                 "{{ class }}",
                 $name,
@@ -136,11 +131,6 @@ trait PublishServicesTrait
                 "{{ class }}",
                 $name,
                 $dtoConf->content->classname
-            ),
-            "{{ pageDtoClass }}" => str_replace(
-                "{{ class }}",
-                $name,
-                $dtoConf->page->classname
             ),
             "{{ createDtoClass }}" => str_replace(
                 "{{ class }}",

@@ -2,8 +2,8 @@
 
 namespace {{ namespace }};
 
+use Inium\Mvcs\Common\Dto\PageDto;
 use {{ contentDtoNamespace }}\{{ contentDtoClass }};
-use {{ pageDtoNamespace }}\{{ pageDtoClass }};
 use {{ createDtoNamespace }}\{{ createDtoClass }};
 use {{ updateDtoNamespace }}\{{ updateDtoClass }};
 
@@ -15,9 +15,9 @@ interface {{ class }}
      * @param string|null $query    Search text
      * @param int $page             Page number
      * @param int $rows             # of rows per page
-     * @return {{ pageDtoClass }}
+     * @return PageDto
      */
-    public function find(?string $query, int $page, int $rows): {{ pageDtoClass }};
+    public function find(?string $query, int $page, int $rows): PageDto
 
     /**
      * Find a content by id

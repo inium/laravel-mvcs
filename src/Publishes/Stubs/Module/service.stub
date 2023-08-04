@@ -4,11 +4,11 @@ namespace {{ namespace }};
 
 use Inium\Mvcs\Common\Mapper\ModelMapper;
 use Inium\Mvcs\Common\Traits\ArrayTrait;
+use Inium\Mvcs\Common\Dto\PageDto;
 use Inium\Mvcs\Common\Dto\PageMetaDto;
 use {{ repositoryInterfaceNamespace }}\{{ repositoryInterfaceClass }};
 use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
 use {{ contentDtoNamespace }}\{{ contentDtoClass }};
-use {{ pageDtoNamespace }}\{{ pageDtoClass }};
 use {{ createDtoNamespace }}\{{ createDtoClass }};
 use {{ updateDtoNamespace }}\{{ updateDtoClass }};
 
@@ -46,7 +46,7 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function find(string $query, int $page, int $rows): {{ pageDtoClass }}
+    public function find(string $query, int $page, int $rows): PageDto
     {
         $ret = $this->repository->find($query, $page, $rows);
 
@@ -62,7 +62,7 @@ class {{ class }} implements {{ serviceInterfaceClass }}
                 "data" => $data->toArray(),
                 "meta" => PageMetaDto::fromArray($this->keysToCamel($ret)),
             ],
-            {{ pageDtoClass }}::class
+            PageDto::class
         );
     }
 

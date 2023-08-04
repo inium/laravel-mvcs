@@ -79,13 +79,6 @@ return [
                 "path" => "app/Modules/{{ class }}/Dto/{{ class }}Dto.php",
                 "stub" => __DIR__ . "/../Publishes/Stubs/Module/Dto/dto.stub",
             ],
-            "page" => [
-                "classname" => "Page{{ class }}Dto",
-                "namespace" => "App\Modules\{{ class }}\Dto",
-                "path" => "app/Modules/{{ class }}/Dto/Page{{ class }}Dto.php",
-                "stub" =>
-                    __DIR__ . "/../Publishes/Stubs/Module/Dto/page-dto.stub",
-            ],
             "create" => [
                 "classname" => "Create{{ class }}Dto",
                 "namespace" => "App\Modules\{{ class }}\Dto",
