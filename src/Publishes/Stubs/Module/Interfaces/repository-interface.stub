@@ -29,12 +29,12 @@ interface {{ class }}
     public function findById(int $id): array;
 
     /**
-     * Create a content
+     * Store a content
      *
-     * @param array $data   Contents to be created (key => value)
+     * @param array $data   Contents to be stored (key => value)
      * @return array
      */
-    public function create(array $data): array;
+    public function store(array $data): array;
 
     /**
      * Update a content

@@ -26,14 +26,14 @@ trait PublishRequestsTrait
     }
 
     /**
-     * Publish create request
+     * Publish store request
      *
      * @param string $name          class name
      * @param object $reqConfig     request config
      * @param object $dtoConfig     dto config
      * @return void
      */
-    protected function publishCreateRequest(
+    protected function publishStoreRequest(
         string $name,
         object $reqConfig,
         object $dtoConfig
