@@ -4,7 +4,7 @@ namespace Inium\Mvcs\Common\Dto;
 
 use Inium\Mvcs\Common\Dto\PageMetaDto;
 
-class PageCampaignDto implements \JsonSerializable
+class PageDto implements \JsonSerializable
 {
     /**
      * Constructor
