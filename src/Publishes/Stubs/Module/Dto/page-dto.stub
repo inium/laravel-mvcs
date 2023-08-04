@@ -2,23 +2,19 @@
 
 namespace {{ namespace }};
 
+use Inium\Mvcs\Common\Dto\PageMetaDto;
+
 class {{ class }} implements \JsonSerializable
 {
     /**
      * Constructor
      *
-     * @param array $items      Page items
-     * @param int $total        # of total items
-     * @param int $currentPage  # of current page
-     * @param int $lastPage     # of last page
-     * @param int $perPage      # of items per page
+     * @param array $data           Pagination items
+     * @param PageMetaDto $meta     Pagination page info
      */
     public function __construct(
-        public readonly array $items,
-        public readonly int $total,
-        public readonly int $currentPage,
-        public readonly int $lastPage,
-        public readonly int $perPage
+        public readonly array $data,
+        public PageMetaDto $meta
     ) {
     }
 

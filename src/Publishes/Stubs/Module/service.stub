@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use Inium\Mvcs\Common\Mapper\ModelMapper;
 use Inium\Mvcs\Common\Traits\ArrayTrait;
+use Inium\Mvcs\Common\Dto\PageMetaDto;
 use {{ repositoryInterfaceNamespace }}\{{ repositoryInterfaceClass }};
 use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
 use {{ contentDtoNamespace }}\{{ contentDtoClass }};
@@ -45,59 +46,32 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function paginate(int $page, int $rows): {{ pageDtoClass }}
-    {
-        $ret = $this->repository->paginate($page, $rows);
-
-        $items = collect($ret["data"])
-            ->map(
-                fn($item) => $this->mapper->map(
-                    $this->keysToCamel($item),
-                    {{ contentDtoClass }}::class
-                )
-            )
-            ->toArray();
-
-        return new {{ pageDtoClass }}(
-            $items,
-            $ret["total"],
-            $ret["current_page"],
-            $ret["last_page"],
-            $ret["per_page"]
-        );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function find(string $query, int $page, int $rows): {{ pageDtoClass }}
     {
         $ret = $this->repository->find($query, $page, $rows);
 
-        $items = collect($ret["data"])
-            ->map(
-                fn($item) => $this->mapper->map(
-                    $this->keysToCamel($item),
-                    {{ contentDtoClass }}::class
-                )
+        $data = collect($ret["data"])->map(
+            fn($item) => $this->mapper->map(
+                $this->keysToCamel($item),
+                {{ contentDtoClass }}::class
             )
-            ->toArray();
+        );
 
-        return new {{ pageDtoClass }}(
-            $items,
-            $ret["total"],
-            $ret["current_page"],
-            $ret["last_page"],
-            $ret["per_page"]
+        return $this->mapper->map(
+            [
+                "data" => $data->toArray(),
+                "meta" => PageMetaDto::fromArray($this->keysToCamel($ret)),
+            ],
+            {{ pageDtoClass }}::class
         );
     }
 
     /**
      * {@inheritDoc}
      */
-    public function findOne(int $id): {{ contentDtoClass }}
+    public function findById(int $id): {{ contentDtoClass }}
     {
-        $ret = $this->repository->findOne($id);
+        $ret = $this->repository->findById($id);
 
         return $this->mapper->map(
             $this->keysToCamel($ret),
@@ -134,8 +108,8 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function delete(int $id): int
+    public function deleteById(int $id): int
     {
-        return $this->repository->delete($id);
+        return $this->repository->deleteById($id);
     }
 }

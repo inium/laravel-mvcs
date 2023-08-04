@@ -38,10 +38,7 @@ class {{ class }} extends Controller
     public function index({{ pageRequestClass }} $request): JsonResponse
     {
         $q = (object) $request->all();
-
-        $ret = is_null($q->query)
-            ? $this->service->paginate($q->page, $q->rows)
-            : $this->service->find($q->query, $q->page, $q->rows);
+        $ret =  $this->service->find($q->query, $q->page, $q->rows);
 
         return response()->json($ret);
     }
@@ -69,7 +66,7 @@ class {{ class }} extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $ret = $this->service->findOne($id);
+        $ret = $this->service->findById($id);
 
         return response()->json($ret);
     }
@@ -96,7 +93,7 @@ class {{ class }} extends Controller
      */
     public function destroy(int $id): Response
     {
-        $this->service->delete($id);
+        $this->service->deleteById($id);
 
         return response()->noContent();
     }

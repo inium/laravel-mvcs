@@ -40,6 +40,26 @@ class {{ class }} extends MvcsFormRequest
     /**
      * {@inheritDoc}
      */
+    public function attributes(): array
+    {
+        return [
+           //
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function messages(): array
+    {
+        return [
+           //
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function dtoClassName(): ?string
     {
         return {{ dtoClass }}::class;
