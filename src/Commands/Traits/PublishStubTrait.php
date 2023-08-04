@@ -26,7 +26,6 @@ trait PublishStubTrait
 
         $template = str_replace($search, $replace, $code);
 
-        // if (File::exists(base_path($destPath))) {
         if (file_exists(base_path($destPath))) {
             $this->components->error("Can't locate path: <{$destPath}>");
             return;
@@ -39,7 +38,6 @@ trait PublishStubTrait
             sprintf("Publishing [%s]", base_path($destPath))
         );
 
-        // file_put_contents(base_path($destPath), $template);
         File::put(base_path($destPath), $template);
     }
 

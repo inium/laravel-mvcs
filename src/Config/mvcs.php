@@ -23,13 +23,13 @@ return [
             "stub" =>
                 __DIR__ . "/../Publishes/Stubs/Requests/page-request.stub",
         ],
-        "store" => [
-            "classname" => "Store{{ class }}Request",
+        "create" => [
+            "classname" => "Create{{ class }}Request",
             "namespace" => "App\Http\Requests\{{ class }}",
             "path" =>
-                "app/Http/Requests/{{ class }}/Store{{ class }}Request.php",
+                "app/Http/Requests/{{ class }}/Create{{ class }}Request.php",
             "stub" =>
-                __DIR__ . "/../Publishes/Stubs/Requests/store-request.stub",
+                __DIR__ . "/../Publishes/Stubs/Requests/create-request.stub",
         ],
         "update" => [
             "classname" => "Update{{ class }}Request",
@@ -86,13 +86,13 @@ return [
                 "stub" =>
                     __DIR__ . "/../Publishes/Stubs/Module/Dto/page-dto.stub",
             ],
-            "store" => [
-                "classname" => "Store{{ class }}Dto",
+            "create" => [
+                "classname" => "Create{{ class }}Dto",
                 "namespace" => "App\Modules\{{ class }}\Dto",
                 "path" =>
-                    "app/Modules/{{ class }}/Dto/Store{{ class }}Dto.php",
+                    "app/Modules/{{ class }}/Dto/Create{{ class }}Dto.php",
                 "stub" =>
-                    __DIR__ . "/../Publishes/Stubs/Module/Dto/store-dto.stub",
+                    __DIR__ . "/../Publishes/Stubs/Module/Dto/Create-dto.stub",
             ],
             "update" => [
                 "classname" => "Update{{ class }}Dto",

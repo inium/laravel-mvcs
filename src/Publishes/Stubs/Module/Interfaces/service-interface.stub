@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 use {{ contentDtoNamespace }}\{{ contentDtoClass }};
 use {{ pageDtoNamespace }}\{{ pageDtoClass }};
-use {{ storeDtoNamespace }}\{{ storeDtoClass }};
+use {{ createDtoNamespace }}\{{ createDtoClass }};
 use {{ updateDtoNamespace }}\{{ updateDtoClass }};
 
 interface {{ class }}
@@ -28,12 +28,12 @@ interface {{ class }}
     public function findById(int $id): {{ contentDtoClass }};
 
     /**
-     * Store a content
+     * Create a content
      *
-     * @param {{ storeDtoClass }} $dto Dto
+     * @param {{ createDtoClass }} $dto Dto
      * @return {{ contentDtoClass }}
      */
-    public function store({{ storeDtoClass }} $dto): {{ contentDtoClass }};
+    public function create({{ createDtoClass }} $dto): {{ contentDtoClass }};
 
     /**
      * Update a content

@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use {{ pageRequestNamespace }}\{{ pageRequestClass }};
-use {{ storeRequestNamespace }}\{{ storeRequestClass }};
+use {{ createRequestNamespace }}\{{ createRequestClass }};
 use {{ updateRequestNamespace }}\{{ updateRequestClass }};
 use {{ serviceInterfaceNamespace }}\{{ serviceInterfaceClass }};
 
@@ -46,12 +46,12 @@ class {{ class }} extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param {{ storeRequestClass }} $request
+     * @param {{ createRequestClass }} $request
      * @return \Illuminate\Http\Response
      */
-    public function store({{ storeRequestClass }} $request): Response
+    public function store({{ createRequestClass }} $request): Response
     {
-        $ret = $this->service->store($request->toDto());
+        $ret = $this->service->create($request->toDto());
 
         return response()->noContent(Response::HTTP_CREATED, [
             "Location" => [action([get_class(), "show"], ["id" => $ret->id])],
