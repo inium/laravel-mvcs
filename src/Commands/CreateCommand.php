@@ -25,7 +25,7 @@ class CreateCommand extends Command
      * The name and signature of the console command.
      *
      * Layered Architecutre 를 위한 모듈 Set을 생성하는 콘솔 명령어
-     * - Module: Controller, Repository, Service, DTO(Data Transfer Object), Request (Page, Store, Update)
+     * - Module: Controller, Repository, Service, DTO(Data Transfer Object), Request (Page, Create, Update)
      * - Database: Model, Factory, Migration, Seeds
      *
      * @var string
@@ -78,7 +78,7 @@ class CreateCommand extends Command
     /**
      * 모든 구성요소를 생성한다 (아래 항목)
      * - Model(Model, Factory, Migration, Seeder, Test(feature))
-     * - Requests(Page, Store, Update)
+     * - Requests(Page, Create, Update)
      * - Module(Service, Repository, DTO)
      * - Database(Factory, Migration, Seeder)
      * - Controller
@@ -96,7 +96,7 @@ class CreateCommand extends Command
     /**
      * 데이터베이스 관련 모듈을 제외한 아래 구성요소를 생성한다
      * - Model(Model, Factory, Migration, Seeder, Test(feature))
-     * - Requests(Page, Store, Update)
+     * - Requests(Page, Create, Update)
      * - Module(Service, Repository, DTO)
      * - Database(Factory, Migration, Seeder)
      *
@@ -128,7 +128,7 @@ class CreateCommand extends Command
     /**
      * Request들을 생성한다
      * - PageRequest: 목록 Request
-     * - StoreRequest: 생성 Request
+     * - CreateRequest: 생성 Request
      * - UpdateRequest: 갱신 Request
      *
      * @param string $name      모듈 이름
@@ -141,7 +141,7 @@ class CreateCommand extends Command
         $dtoConf = $config->module->dto;
 
         $this->publishPageRequest($name, $reqConf->page);
-        $this->publishStoreRequest($name, $reqConf->store, $dtoConf->store);
+        $this->publishCreateRequest($name, $reqConf->create, $dtoConf->create);
         $this->publishUpdateRequest($name, $reqConf->update, $dtoConf->update);
     }
 
@@ -196,7 +196,7 @@ class CreateCommand extends Command
      * DTO(Data Transfer Object) 클래스들을 생성한다 (아래 항목)
      * - PageDto: 콘텐츠 목록 저장 DTO
      * - ContentDto: 콘텐츠 DTO
-     * - StoreDto: 콘텐츠 생성 DTO
+     * - CreateDto: 콘텐츠 생성 DTO
      * - UpdateDto: 콘텐츠 갱신 DTO
      *
      * @param string $name      모듈 이름
@@ -210,14 +210,14 @@ class CreateCommand extends Command
         // Publish DTO
         $this->publishContentDto($name, $dtoConf->content);
         $this->publishPageDto($name, $dtoConf->page);
-        $this->publishStoreDto($name, $dtoConf->store);
+        $this->publishCreateDto($name, $dtoConf->create);
         $this->publishUpdateDto($name, $dtoConf->update);
     }
 
     /**
      * Controller를 생성한다.
      *
-     * @param string $name      모듈 이름
+     * @param string $name      모듈 이
      * @param object $config    환경설정 정보
      * @return void
      */

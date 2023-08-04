@@ -1,16 +1,16 @@
 <?php
 
-namespace {{ namespace }};
+namespace Inium\Mvcs\Common\Dto;
 
 use Inium\Mvcs\Common\Dto\PageMetaDto;
 
-class {{ class }} implements \JsonSerializable
+class PageCampaignDto implements \JsonSerializable
 {
     /**
      * Constructor
      *
-     * @param array $data           Pagination items
-     * @param PageMetaDto $meta     Pagination page info
+     * @param array $data           Page items
+     * @param PageMetaDto $meta     Page Meta
      */
     public function __construct(
         public readonly array $data,

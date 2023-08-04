@@ -41,4 +41,24 @@ class {{ class }} extends MvcsFormRequest
             "query" => null,
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function attributes(): array
+    {
+        return [
+           //
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function messages(): array
+    {
+        return [
+           //
+        ];
+    }
 }

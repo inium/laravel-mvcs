@@ -30,24 +30,8 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function paginate(
-        int $page,
-        int $rows,
-        bool $desc = true
-    ): array {
-        $this->setPageNum($page);
-
-        return $this->model
-            ->orderBy($this->model->getKeyName(), $desc ? "DESC" : "ASC")
-            ->paginate($rows)
-            ->toArray();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function find(
-        string $query,
+        ?string $query,
         int $page,
         int $rows,
         bool $desc = true
@@ -58,11 +42,14 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
         $searchColumns = [];
 
         return $this->model
-            ->where(function ($q) use ($searchColumns, $query) {
-                foreach ($searchColumns as $column) {
-                    $q->orWhere($column, "LIKE", "%{$query}%");
-                }
-            })
+            ->when(
+                !is_null($query),
+                fn($q) => $q->where(function ($q) use ($searchColumns, $query) {
+                    foreach ($searchColumns as $column) {
+                        $q->orWhere($column, "LIKE", "%{$query}%");
+                    }
+                })
+            )
             ->orderBy($this->model->getKeyName(), $desc ? "DESC" : "ASC")
             ->paginate($rows)
             ->toArray();
@@ -71,7 +58,7 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function findOne(int $id): array
+    public function findByid(int $id): array
     {
         return $this->model->findOrFail($id)->toArray();
     }
@@ -79,7 +66,7 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function store(array $data): array
+    public function create(array $data): array
     {
         return $this->model->create($data)->toArray();
     }
@@ -98,7 +85,7 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function delete(int $id): int
+    public function deleteById(int $id): int
     {
         return $this->model
             ->where("id", $id)

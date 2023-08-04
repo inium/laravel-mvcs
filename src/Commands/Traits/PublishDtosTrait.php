@@ -30,7 +30,7 @@ trait PublishDtosTrait
      * Publish paginate data transfer object
      *
      * @param string $name      class name
-     * @param object $dtoConf   store data transfer object config
+     * @param object $dtoConf   page data transfer object config
      * @return void
      */
     protected function publishPageDto(string $name, object $dtoConf): void
@@ -46,13 +46,13 @@ trait PublishDtosTrait
     }
 
     /**
-     * Publish store data transfer object
+     * Publish create data transfer object
      *
      * @param string $name      class name
-     * @param object $dtoConf   store data transfer object config
+     * @param object $dtoConf   create data transfer object config
      * @return void
      */
-    protected function publishStoreDto(string $name, object $dtoConf): void
+    protected function publishCreateDto(string $name, object $dtoConf): void
     {
         $namespace = str_replace("{{ class }}", $name, $dtoConf->namespace);
         $class = str_replace("{{ class }}", $name, $dtoConf->classname);

@@ -5,50 +5,36 @@ namespace {{ namespace }};
 interface {{ class }}
 {
     /**
-     * Paginate contents
-     *
-     * @param int $page     Page number
-     * @param int $rows     # of rows
-     * @param bool $desc    Order by (true: DESC, false: ASC)
-     * @return array
-     */
-    public function paginate(
-        int $page,
-        int $rows,
-        bool $desc = true
-    ): array;
-
-    /**
      * Find contents
      *
-     * @param string $query Query string
-     * @param int $page     Page number
-     * @param int $rows     # of rows
-     * @param bool $desc    Order by (true: DESC, false: ASC)
+     * @param string|null $query    Search text
+     * @param int $page             Page number
+     * @param int $rows             # of rows
+     * @param bool $desc            Order by (true: DESC, false: ASC)
      * @return array
      */
     public function find(
-        string $query,
+        ?string $query,
         int $page,
         int $rows,
         bool $desc = true
     ): array;
 
     /**
-     * Find a content
+     * Find a content by id
      *
      * @param int $id
      * @return array
      */
-    public function findOne(int $id): array;
+    public function findById(int $id): array;
 
     /**
-     * Store a content
+     * Create a content
      *
-     * @param array $data   Contents to be stored (key => value)
+     * @param array $data   Contents to be created (key => value)
      * @return array
      */
-    public function store(array $data): array;
+    public function create(array $data): array;
 
     /**
      * Update a content
@@ -60,10 +46,10 @@ interface {{ class }}
     public function update(array $data, int $id): int;
 
     /**
-     * Delete a content
+     * Delete a content by id
      *
      * @param int $id
      * @return int  1: success, 0: fail
      */
-    public function delete(int $id): int;
+    public function deleteById(int $id): int;
 }
