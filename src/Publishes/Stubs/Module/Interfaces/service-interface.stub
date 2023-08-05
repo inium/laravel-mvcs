@@ -17,7 +17,7 @@ interface {{ class }}
      * @param int $rows             # of rows per page
      * @return PageDto
      */
-    public function find(?string $query, int $page, int $rows): PageDto
+    public function find(?string $query, int $page, int $rows): PageDto;
 
     /**
      * Find a content by id
