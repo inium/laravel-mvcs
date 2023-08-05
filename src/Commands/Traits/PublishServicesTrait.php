@@ -30,11 +30,6 @@ trait PublishServicesTrait
                 $name,
                 $dtoConf->content->namespace
             ),
-            "{{ pageDtoNamespace }}" => str_replace(
-                "{{ class }}",
-                $name,
-                $dtoConf->page->namespace
-            ),
             "{{ createDtoNamespace }}" => str_replace(
                 "{{ class }}",
                 $name,
@@ -111,11 +106,6 @@ trait PublishServicesTrait
                 "{{ class }}",
                 $name,
                 $dtoConf->content->namespace
-            ),
-            "{{ pageDtoNamespace }}" => str_replace(
-                "{{ class }}",
-                $name,
-                $dtoConf->page->namespace
             ),
             "{{ createDtoNamespace }}" => str_replace(
                 "{{ class }}",
