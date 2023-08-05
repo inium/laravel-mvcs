@@ -27,25 +27,6 @@ trait PublishDtosTrait
     }
 
     /**
-     * Publish paginate data transfer object
-     *
-     * @param string $name      class name
-     * @param object $dtoConf   page data transfer object config
-     * @return void
-     */
-    protected function publishPageDto(string $name, object $dtoConf): void
-    {
-        $namespace = str_replace("{{ class }}", $name, $dtoConf->namespace);
-        $class = str_replace("{{ class }}", $name, $dtoConf->classname);
-        $putPath = str_replace("{{ class }}", $name, $dtoConf->path);
-
-        $this->publishStub($dtoConf->stub, $putPath, [
-            "{{ namespace }}" => $namespace,
-            "{{ class }}" => $class,
-        ]);
-    }
-
-    /**
      * Publish create data transfer object
      *
      * @param string $name      class name

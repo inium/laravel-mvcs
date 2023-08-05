@@ -25,7 +25,7 @@ class CreateCommand extends Command
      * The name and signature of the console command.
      *
      * Layered Architecutre 를 위한 모듈 Set을 생성하는 콘솔 명령어
-     * - Module: Controller, Repository, Service, DTO(Data Transfer Object), Request (Page, Create, Update)
+     * - Module: Controller, Repository, Service, DTO, Requests
      * - Database: Model, Factory, Migration, Seeds
      *
      * @var string
@@ -194,7 +194,6 @@ class CreateCommand extends Command
 
     /**
      * DTO(Data Transfer Object) 클래스들을 생성한다 (아래 항목)
-     * - PageDto: 콘텐츠 목록 저장 DTO
      * - ContentDto: 콘텐츠 DTO
      * - CreateDto: 콘텐츠 생성 DTO
      * - UpdateDto: 콘텐츠 갱신 DTO
@@ -209,7 +208,6 @@ class CreateCommand extends Command
 
         // Publish DTO
         $this->publishContentDto($name, $dtoConf->content);
-        $this->publishPageDto($name, $dtoConf->page);
         $this->publishCreateDto($name, $dtoConf->create);
         $this->publishUpdateDto($name, $dtoConf->update);
     }
