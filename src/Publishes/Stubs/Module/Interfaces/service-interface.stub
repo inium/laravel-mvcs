@@ -10,7 +10,7 @@ use {{ updateDtoNamespace }}\{{ updateDtoClass }};
 interface {{ class }}
 {
     /**
-     * Find contents
+     * Find or search contents
      *
      * @param string|null $query    Search text
      * @param int $page             Page number
@@ -45,7 +45,7 @@ interface {{ class }}
     public function update({{ updateDtoClass }} $dto, int $id): int;
 
     /**
-     * Delete a content
+     * Delete a content by id
      *
      * @param int $id   Content id
      * @return int  # of deleted rows

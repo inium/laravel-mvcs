@@ -5,7 +5,7 @@ namespace {{ namespace }};
 interface {{ class }}
 {
     /**
-     * Find contents
+     * Find or search contents
      *
      * @param string|null $query    Search text
      * @param int $page             Page number
