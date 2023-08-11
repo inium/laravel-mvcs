@@ -46,7 +46,7 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function find(string $query, int $page, int $rows): PageDto
+    public function find(?string $query, int $page, int $rows): PageDto
     {
         $ret = $this->repository->find($query, $page, $rows);
 
