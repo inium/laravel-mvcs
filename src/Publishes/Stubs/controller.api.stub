@@ -40,6 +40,10 @@ class {{ class }} extends Controller
         $q = (object) $request->all();
         $ret =  $this->service->find($q->query, $q->page, $q->rows);
 
+        if (count($ret->data) == 0) {
+            return abort(404);
+        }
+
         return response()->json($ret);
     }
 

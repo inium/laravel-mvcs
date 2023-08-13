@@ -50,10 +50,6 @@ class {{ class }} implements {{ serviceInterfaceClass }}
     {
         $ret = $this->repository->find($query, $page, $rows);
 
-        if (count($ret["data"]) == 0) {
-            return abort(404);
-        }
-
         $data = collect($ret["data"])->map(
             fn($item) => $this->mapper->map(
                 $this->keysToCamel($item),
