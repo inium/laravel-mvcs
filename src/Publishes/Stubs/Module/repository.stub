@@ -58,7 +58,7 @@ class {{ class }} implements {{ repositoryInterfaceClass }}
     /**
      * {@inheritDoc}
      */
-    public function findByid(int $id): array
+    public function findById(int $id): array
     {
         return $this->model->findOrFail($id)->toArray();
     }
