@@ -32,7 +32,7 @@ class CreateCommand extends Command
      */
     protected $signature = "mvcs:create
         {name : Class name}
-        {?--module : Create module (Controller, Request, Repository, Service, DTO) only}";
+        {--module : Create module (Controller, Request, Repository, Service, DTO) only}";
 
     /**
      * The console command description.
